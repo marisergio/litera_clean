@@ -1,9 +1,6 @@
 import express from 'express';
 import LivroRoutes from './infra/web/express/routes/LivroRoutes';
+import { ApiExpress } from './infra/web/express/ApiExpress';
 
-const app = express();
-app.use(express.json());
-
-app.use('/api', LivroRoutes);
-
-app.listen(3000, () => console.log('Server running on port 3000'));
+const app = new ApiExpress(LivroRoutes);
+app.start(3000);
