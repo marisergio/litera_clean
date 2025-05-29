@@ -14,4 +14,12 @@ export class LivroControle {
             res.status(500).json({ error: 'Internal server error' });
         }
     }
+    public async listar(res: Response){
+        try{ 
+            const livros = await this.listLivro.execute()
+            res.status(200).json(livros);
+        }catch (error){
+            res.status(500).json({ error: 'Internal server error' })
+        }
+    }
 }

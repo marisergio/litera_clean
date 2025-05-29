@@ -1,4 +1,5 @@
 import express, { Express, Router } from "express";
+import cors from 'cors';
 
 export class ApiExpress {
     private app: Express;
@@ -6,6 +7,8 @@ export class ApiExpress {
     constructor(routes: Router) {
         this.app = express();
         this.app.use(express.json());
+        this.app.use(cors());
+
         this.app.use(routes)
     }
 
