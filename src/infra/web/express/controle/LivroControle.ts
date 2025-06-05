@@ -26,7 +26,7 @@ export class LivroControle {
 
     public async removerLivro(req: Request, res: Response) {
         try {
-            const { id } = req.body;
+            const id = req.params.id;
             const result = await this.deleteLivro.execute({ id });
             res.status(201).json(result);
         } catch (error) {
