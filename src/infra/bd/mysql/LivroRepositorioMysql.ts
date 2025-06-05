@@ -39,12 +39,18 @@ export class LivroRepositorioMysql implements LivroRepositorio {
             );
         } catch (error) {
             console.log(error)
-            throw Error("Erro ao salvar o livro: "+livro.titulo)
+            throw Error("Erro ao salvar o livro: " + livro.titulo)
         }
     }
 
-    async remover(id: string): Promise<void> {
-        await conexao.query("DELETE FROM livros WHERE id = ?", [id]);
+    async remover(id: string): Promise<boolean> {
+        try {
+            await conexao.query("DELETE FROM livros WHERE id = ?", [id]);
+            return true;
+        } catch (error) {
+            console.log(error)
+            throw Error("Erro ao deletar o livro: " + id)
+        }
     }
 
     async atualizar(livro: Livro): Promise<void> {

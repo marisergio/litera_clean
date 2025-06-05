@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { CreateLivro } from "../../../../aplicacao/usecase/livro/CreateLivro";
 import { ListLivro } from "../../../../aplicacao/usecase/livro/ListLivro";
+import { DeleteLivro } from "../../../../aplicacao/usecase/livro/DeleteLivro";
 
 export class LivroControle {
-    constructor(private createLivro: CreateLivro, private listLivro: ListLivro){}
+    constructor(private createLivro: CreateLivro, private listLivro: ListLivro, private deleteLivro: DeleteLivro){}
 
     public async criarLivro(req: Request, res: Response) {
         try {
@@ -20,6 +21,16 @@ export class LivroControle {
             res.status(200).json(livros);
         }catch (error){
             res.status(500).json({ error: 'Internal server error' })
+        }
+    }
+
+    public async removerLivro(req: Request, res: Response) {
+        try {
+            const { id } = req.body;
+            const result = await this.deleteLivro.execute({ id });
+            res.status(201).json(result);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 }
